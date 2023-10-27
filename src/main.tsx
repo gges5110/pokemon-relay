@@ -1,7 +1,13 @@
+import { RelayEnvironmentProvider } from "react-relay";
+import { RelayEnvironment } from "./RelayEnvironment";
 import { createRoot } from "react-dom/client";
 import { App } from "./App";
 import "./main.css";
 
 const root = createRoot(document.getElementById("app"));
 
-root.render(<App />);
+root.render(
+  <RelayEnvironmentProvider environment={RelayEnvironment}>
+    <App />
+  </RelayEnvironmentProvider>
+);
