@@ -6,5 +6,6 @@
     "**/__mocks__/**",
     "**/__generated__/**"
   ],
-  "eagerEsModules": true
+  "eagerEsModules": true,
+  "schema": "./src/schema.graphql"
 }

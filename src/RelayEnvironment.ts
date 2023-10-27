@@ -4,8 +4,8 @@ import {
   RecordSource,
   Store,
   FetchFunction,
-} from "relay-runtime";
-
+} from "relay-runtime"; 
+ 
 const HTTP_ENDPOINT = "https://beta.pokeapi.co/graphql/v1beta";
 
 const fetchFn: FetchFunction = async (request, variables) => {
