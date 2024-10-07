@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<ff64bccf5838d2a265aeecf25f9e5ffd>>
+ * @generated SignedSource<<ec897da115c7ad7ba7699f30a7265a3b>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -13,14 +13,15 @@ export type PokemonListQuery$variables = {
   offset?: number | null | undefined;
 };
 export type PokemonListQuery$data = {
-  readonly pokemon_v2_pokemon: ReadonlyArray<{
+  readonly pokemon_v2_pokemonspecies: ReadonlyArray<{
     readonly name: string;
     readonly order: number | null | undefined;
-    readonly pokemon_v2_pokemontypes: ReadonlyArray<{
-      readonly pokemon_v2_type: {
-        readonly name: string;
-      } | null | undefined;
-      readonly type_id: number | null | undefined;
+    readonly pokemon_v2_pokemons: ReadonlyArray<{
+      readonly pokemon_v2_pokemontypes: ReadonlyArray<{
+        readonly pokemon_v2_type: {
+          readonly name: string;
+        } | null | undefined;
+      }>;
     }>;
   }>;
 };
@@ -57,11 +58,29 @@ v2 = [
         "kind": "Variable",
         "name": "offset",
         "variableName": "offset"
+      },
+      {
+        "kind": "Literal",
+        "name": "order_by",
+        "value": {
+          "order": "asc"
+        }
+      },
+      {
+        "kind": "Literal",
+        "name": "where",
+        "value": {
+          "pokemon_v2_generation": {
+            "id": {
+              "_eq": 1
+            }
+          }
+        }
       }
     ],
-    "concreteType": "pokemon_v2_pokemon",
+    "concreteType": "pokemon_v2_pokemonspecies",
     "kind": "LinkedField",
-    "name": "pokemon_v2_pokemon",
+    "name": "pokemon_v2_pokemonspecies",
     "plural": true,
     "selections": [
       (v1/*: any*/),
@@ -75,27 +94,31 @@ v2 = [
       {
         "alias": null,
         "args": null,
-        "concreteType": "pokemon_v2_pokemontype",
+        "concreteType": "pokemon_v2_pokemon",
         "kind": "LinkedField",
-        "name": "pokemon_v2_pokemontypes",
+        "name": "pokemon_v2_pokemons",
         "plural": true,
         "selections": [
           {
             "alias": null,
             "args": null,
-            "kind": "ScalarField",
-            "name": "type_id",
-            "storageKey": null
-          },
-          {
-            "alias": null,
-            "args": null,
-            "concreteType": "pokemon_v2_type",
+            "concreteType": "pokemon_v2_pokemontype",
             "kind": "LinkedField",
-            "name": "pokemon_v2_type",
-            "plural": false,
+            "name": "pokemon_v2_pokemontypes",
+            "plural": true,
             "selections": [
-              (v1/*: any*/)
+              {
+                "alias": null,
+                "args": null,
+                "concreteType": "pokemon_v2_type",
+                "kind": "LinkedField",
+                "name": "pokemon_v2_type",
+                "plural": false,
+                "selections": [
+                  (v1/*: any*/)
+                ],
+                "storageKey": null
+              }
             ],
             "storageKey": null
           }
@@ -124,16 +147,16 @@ return {
     "selections": (v2/*: any*/)
   },
   "params": {
-    "cacheID": "c458f0955f483d826e1a00b9e4b05362",
+    "cacheID": "a67bc04fb2c90677504e83f847fd4c23",
     "id": null,
     "metadata": {},
     "name": "PokemonListQuery",
     "operationKind": "query",
-    "text": "query PokemonListQuery(\n  $offset: Int\n) {\n  pokemon_v2_pokemon(limit: 10, offset: $offset) {\n    name\n    order\n    pokemon_v2_pokemontypes {\n      type_id\n      pokemon_v2_type {\n        name\n      }\n    }\n  }\n}\n"
+    "text": "query PokemonListQuery(\n  $offset: Int\n) {\n  pokemon_v2_pokemonspecies(limit: 10, offset: $offset, where: {pokemon_v2_generation: {id: {_eq: 1}}}, order_by: {order: asc}) {\n    name\n    order\n    pokemon_v2_pokemons {\n      pokemon_v2_pokemontypes {\n        pokemon_v2_type {\n          name\n        }\n      }\n    }\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "dda90f1fde43673122a6401dd461d043";
+(node as any).hash = "757036b6d66e66bf0387241c33258135";
 
 export default node;

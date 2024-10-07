@@ -1,15 +1,14 @@
-import { PokemonListQuery$data } from "./__generated__/PokemonListQuery.graphql";
+import { PokemonListContentQuery$data } from "./__generated__/PokemonListContentQuery.graphql";
 import { ListItem } from "@mui/material";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import Avatar from "@mui/material/Avatar";
-import Typography from "@mui/material/Typography";
 import ListItemText from "@mui/material/ListItemText";
-
-type ArrayElement<ArrayType extends readonly unknown[]> =
-  ArrayType extends readonly (infer ElementType)[] ? ElementType : never;
+import type { ArrayElement } from "../utils/TypeUtil";
 
 type Props = {
-  pokemon: ArrayElement<PokemonListQuery$data["pokemon_v2_pokemon"]>;
+  pokemon: ArrayElement<
+    PokemonListContentQuery$data["pokemon_v2_pokemonspecies"]
+  >;
 };
 
 export const PokemonItem = ({ pokemon }: Props) => {
@@ -21,7 +20,10 @@ export const PokemonItem = ({ pokemon }: Props) => {
           src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon.order}.png`}
         />
       </ListItemAvatar>
-      <ListItemText primary={pokemon.name} />
+      <ListItemText
+        primary={pokemon.name}
+        secondary={"Order: " + pokemon.order}
+      />
     </ListItem>
   );
 };
