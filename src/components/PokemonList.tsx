@@ -1,25 +1,17 @@
-import { useState, ChangeEvent, Suspense, useDeferredValue } from "react";
-import { List, Pagination, ListItem, Skeleton } from "@mui/material";
-import { useLazyLoadQuery } from "react-relay";
+import { useState, ChangeEvent, Suspense } from "react";
+import { List, Pagination } from "@mui/material";
+import { useFragment } from "react-relay";
 import { graphql } from "react-relay";
 import { PokemonItem } from "./PokemonItem";
-import type { PokemonListQuery } from "./__generated__/PokemonListQuery.graphql";
 
-const Query = graphql`
-  query PokemonListQuery($offset: Int) {
-    pokemon_v2_pokemonspecies(
-      limit: 10
-      offset: $offset
-      where: { pokemon_v2_generation: { id: { _eq: 1 } } }
-      order_by: { order: asc }
-    ) {
-      name
-      order
-      pokemon_v2_pokemons {
-        pokemon_v2_pokemontypes {
-          pokemon_v2_type {
-            name
-          }
+const PokemonListFragment = graphql`
+  fragment PokemonListFragment on pokemon_v2_pokemonspecies {
+    name
+    order
+    pokemon_v2_pokemons {
+      pokemon_v2_pokemontypes {
+        pokemon_v2_type {
+          name
         }
       }
     }
@@ -28,29 +20,22 @@ const Query = graphql`
 
 type Props = {
   total: number;
+  pokemonList: Array<any>;
 };
 
-export const PokemonList = ({ total }: Props) => {
+export const PokemonList = ({ total, pokemonList }: Props) => {
+  const data = useFragment(PokemonListFragment, pokemonList);
+
   const [page, setPage] = useState(1);
   const handleChange = (event: ChangeEvent<unknown>, value: number) => {
     setPage(value);
   };
-  const data = useLazyLoadQuery<PokemonListQuery>(
-    Query,
-    {
-      offset: (page - 1) * 10,
-    },
-    {
-      fetchPolicy: "store-and-network",
-    }
-  );
-  const deferredQuery = useDeferredValue(data);
 
   return (
     <div>
       <Suspense fallback={"loading..."}>
         <List>
-          {deferredQuery?.pokemon_v2_pokemonspecies?.map((pokemon, index) => {
+          {data.map((pokemon, index) => {
             return <PokemonItem pokemon={pokemon} key={index} />;
           })}
         </List>

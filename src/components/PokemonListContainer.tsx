@@ -11,6 +11,14 @@ const Query = graphql`
         count
       }
     }
+
+    pokemon_v2_pokemonspecies(
+      limit: 10
+      where: { pokemon_v2_generation: { id: { _eq: 1 } } }
+      order_by: { order: asc }
+    ) {
+      ...PokemonListFragment
+    }
   }
 `;
 
@@ -20,6 +28,7 @@ export const PokemonListContainer = () => {
     <Suspense>
       <PokemonList
         total={data.pokemon_v2_pokemonspecies_aggregate.aggregate?.count || 0}
+        pokemonList={data.pokemon_v2_pokemonspecies}
       />
     </Suspense>
   );

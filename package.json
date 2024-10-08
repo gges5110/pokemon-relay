@@ -21,7 +21,7 @@
   },
   "scripts": {
     "start": "vite",
-    "relay": "relay-compiler --watch",
+    "relay": "relay-compiler",
     "generate": "graphql-codegen"
   },
   "devDependencies": {
