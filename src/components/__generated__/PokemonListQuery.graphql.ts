@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<ec897da115c7ad7ba7699f30a7265a3b>>
+ * @generated SignedSource<<08d969acf65aeb78fd09b942c8c33b35>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -10,7 +10,8 @@
 
 import { ConcreteRequest, Query } from 'relay-runtime';
 export type PokemonListQuery$variables = {
-  offset?: number | null | undefined;
+  cursor?: number | null | undefined;
+  limit?: number | null | undefined;
 };
 export type PokemonListQuery$data = {
   readonly pokemon_v2_pokemonspecies: ReadonlyArray<{
@@ -35,7 +36,12 @@ var v0 = [
   {
     "defaultValue": null,
     "kind": "LocalArgument",
-    "name": "offset"
+    "name": "cursor"
+  },
+  {
+    "defaultValue": 10,
+    "kind": "LocalArgument",
+    "name": "limit"
   }
 ],
 v1 = {
@@ -50,14 +56,9 @@ v2 = [
     "alias": null,
     "args": [
       {
-        "kind": "Literal",
-        "name": "limit",
-        "value": 10
-      },
-      {
         "kind": "Variable",
-        "name": "offset",
-        "variableName": "offset"
+        "name": "limit",
+        "variableName": "limit"
       },
       {
         "kind": "Literal",
@@ -67,15 +68,30 @@ v2 = [
         }
       },
       {
-        "kind": "Literal",
-        "name": "where",
-        "value": {
-          "pokemon_v2_generation": {
-            "id": {
-              "_eq": 1
+        "fields": [
+          {
+            "fields": [
+              {
+                "kind": "Variable",
+                "name": "_gt",
+                "variableName": "cursor"
+              }
+            ],
+            "kind": "ObjectValue",
+            "name": "order"
+          },
+          {
+            "kind": "Literal",
+            "name": "pokemon_v2_generation",
+            "value": {
+              "id": {
+                "_eq": 1
+              }
             }
           }
-        }
+        ],
+        "kind": "ObjectValue",
+        "name": "where"
       }
     ],
     "concreteType": "pokemon_v2_pokemonspecies",
@@ -147,16 +163,16 @@ return {
     "selections": (v2/*: any*/)
   },
   "params": {
-    "cacheID": "a67bc04fb2c90677504e83f847fd4c23",
+    "cacheID": "c2b7f069b9d2bf26bb5e14f0c05462bd",
     "id": null,
     "metadata": {},
     "name": "PokemonListQuery",
     "operationKind": "query",
-    "text": "query PokemonListQuery(\n  $offset: Int\n) {\n  pokemon_v2_pokemonspecies(limit: 10, offset: $offset, where: {pokemon_v2_generation: {id: {_eq: 1}}}, order_by: {order: asc}) {\n    name\n    order\n    pokemon_v2_pokemons {\n      pokemon_v2_pokemontypes {\n        pokemon_v2_type {\n          name\n        }\n      }\n    }\n  }\n}\n"
+    "text": "query PokemonListQuery(\n  $cursor: Int\n  $limit: Int = 10\n) {\n  pokemon_v2_pokemonspecies(limit: $limit, where: {pokemon_v2_generation: {id: {_eq: 1}}, order: {_gt: $cursor}}, order_by: {order: asc}) {\n    name\n    order\n    pokemon_v2_pokemons {\n      pokemon_v2_pokemontypes {\n        pokemon_v2_type {\n          name\n        }\n      }\n    }\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "757036b6d66e66bf0387241c33258135";
+(node as any).hash = "82f1cbf94e574d93d46efdd782c7d371";
 
 export default node;
