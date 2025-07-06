@@ -1,13 +1,10 @@
-import { PokemonListContentQuery$data } from "./__generated__/PokemonListContentQuery.graphql";
-import { ListItem } from "@mui/material";
-import ListItemAvatar from "@mui/material/ListItemAvatar";
-import Avatar from "@mui/material/Avatar";
-import ListItemText from "@mui/material/ListItemText";
+import { ListItem, ListItemAvatar, Avatar, ListItemText } from "@mui/material";
+import type { PokemonListQuery$data } from "./__generated__/PokemonListQuery.graphql";
 import type { ArrayElement } from "../utils/TypeUtil";
 
 type Props = {
   pokemon: ArrayElement<
-    PokemonListContentQuery$data["pokemon_v2_pokemonspecies"]
+    PokemonListQuery$data["pokemon_v2_pokemonspecies"]
   >;
 };
 

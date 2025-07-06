@@ -1,5 +1,5 @@
 import { useState, ChangeEvent, Suspense, useDeferredValue } from "react";
-import { List, Pagination, ListItem, Skeleton } from "@mui/material";
+import { List, Pagination } from "@mui/material";
 import { useLazyLoadQuery } from "react-relay";
 import { graphql } from "react-relay";
 import { PokemonItem } from "./PokemonItem";

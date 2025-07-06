@@ -1,6 +1,5 @@
 import { Suspense } from "react";
-import { useLazyLoadQuery } from "react-relay";
-import { graphql } from "react-relay";
+import { useLazyLoadQuery, graphql } from "react-relay";
 import { PokemonList } from "./PokemonList";
 import type { PokemonListContainerQuery } from "./__generated__/PokemonListContainerQuery.graphql";
 
